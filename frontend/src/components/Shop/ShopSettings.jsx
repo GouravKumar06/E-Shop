@@ -10,9 +10,13 @@ import { toast } from 'react-toastify'
 const ShopSettings = () => {
     const {shop} = useSelector((state) => state.shop);
     const [avatar,setAvatar] = useState();
+    const [name,setName] = useState(shop?.name);
+    const [description,setDescription] = useState(shop?.description ? shop?.description : '');
+    const [address, setAddress] = useState(shop?.address);
+    const [phoneNumber, setPhoneNumber] = useState(shop?.phoneNumber);
+    const [zipCode, setZipCode] = useState(shop?.zipCode);
     const dispatch = useDispatch();
 
-    console.log(shop);
 
     const handleImage = async(e)=>{
         e.preventDefault();
@@ -31,7 +35,6 @@ const ShopSettings = () => {
            withCredentials: true,
         })
         .then((res) =>{
-            console.log("Image updated successfully");
             dispatch(loadShop());
             toast.success("Image updated successfully");
         })
@@ -41,8 +44,24 @@ const ShopSettings = () => {
         })
     }
 
-    const updateHandler = (e)=>{
+    const updateHandler = async(e)=>{
         e.preventDefault();
+
+        await axios.put(`${server}/shop/update-shop`,{
+            name,
+            description,
+            address,
+            phoneNumber,
+            zipCode,
+        },{withCredentials: true})
+        .then((res) =>{
+            toast.success("Shop info updated successfully");
+            dispatch(loadShop());
+        })
+        .catch((error)=>{
+            toast.error(error.response.data.message);
+            console.log(error.response.data.message);
+        })
     }
 
   return (
@@ -63,7 +82,9 @@ const ShopSettings = () => {
                     </div>
                 </div>
             </div>
-  
+
+
+            {/* SHOP INFO FORM */}
             <form aria-required={true}  className='flex flex-col items-center ' onSubmit={updateHandler} >
 
                 <div className='800px:w-[50%] w-[100%] mt-5 flex items-center flex-col'>
@@ -77,8 +98,8 @@ const ShopSettings = () => {
                         placeholder={`${shop.name}`}
                         className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                         required
-                        value={shop.name}
-                        // onChange={(e) => setOldPassword(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
 
@@ -92,8 +113,8 @@ const ShopSettings = () => {
                         type='name'
                         placeholder={`${shop.description ? shop.description : 'Enter your shop description'}`}
                         className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
-                        value={shop.description ? shop.description : ''}
-                        // onChange={(e) => setOldPassword(e.target.value)}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
 
@@ -108,8 +129,8 @@ const ShopSettings = () => {
                         placeholder={`${shop.address}`}
                         className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                         required
-                        value={shop.address}
-                        // onChange={(e) => setOldPassword(e.target.value)}
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                     />
                 </div>
 
@@ -124,8 +145,8 @@ const ShopSettings = () => {
                         placeholder={`${shop.phoneNumber}`}
                         className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                         required
-                        value={shop.phoneNumber}
-                        // onChange={(e) => setOldPassword(e.target.value)}
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                 </div>
 
@@ -140,8 +161,8 @@ const ShopSettings = () => {
                         placeholder={`${shop.zipCode}`}
                         className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                         required
-                        value={shop.zipCode}
-                        // onChange={(e) => setOldPassword(e.target.value)}
+                        value={zipCode}
+                        onChange={(e) => setZipCode(e.target.value)}
                     />
                 </div>
 
@@ -152,7 +173,6 @@ const ShopSettings = () => {
                         required
                         readOnly
                         value="Update Shop"
-                        // onChange={(e) => setOldPassword(e.target.value)}
                     />
                 </div>
             </form>

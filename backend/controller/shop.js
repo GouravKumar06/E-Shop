@@ -240,7 +240,7 @@ exports.getShopInfo = async(req,res) =>{
 }
 
 
-//update shop
+//update shop info
 exports.updateShop = async(req,res) =>{
     try{
 
@@ -249,13 +249,12 @@ exports.updateShop = async(req,res) =>{
 
         const ExistShop = await Shop.findById(req.seller.id);       
 
-        console.log("exist shop",ExistShop);
 
         // const existAvatarPath = `uploads/${ExistShop.avatar}`;
 
         // fs.unlinkSync(existAvatarPath);
 
-        if(!ExistUser)
+        if(!ExistShop)
         {
             return res.status(400).json({
                 success:false,
@@ -263,7 +262,7 @@ exports.updateShop = async(req,res) =>{
             })
         }
 
-        const shop = await Shop.findByIdAndUpdate(req.user.id,{
+        const shop = await Shop.findByIdAndUpdate(req.seller.id,{
             zipCode,
             description,
             address,
@@ -292,7 +291,6 @@ exports.updateShop = async(req,res) =>{
 exports.updateShopAvatar = async(req,res) =>{
     try{
         const existShop = await Shop.findById(req.seller.id);
-        console.log("exist shop",existShop);
         const existAvatarPath = `uploads/${existShop.avatar}`;
 
         fs.unlinkSync(existAvatarPath);

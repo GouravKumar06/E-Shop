@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import  {DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { MdOutlineTrackChanges, MdTrackChanges } from 'react-icons/md';
-import { deleteUserAddress, updateUserAddress, updateUserInformation } from '../../redux/actions/user';
+import { deleteUserAddress, loadUser, updateUserAddress, updateUserInformation } from '../../redux/actions/user';
 import {toast} from 'react-toastify';
 import axios from 'axios';
 import {RxCross1} from "react-icons/rx";
@@ -51,7 +51,8 @@ const ProfileContent = ({active}) => {
             },
             withCredentials: true
         }).then((res) => {
-            window.location.reload();
+            dispatch(loadUser());
+            toast.success("avatar updated successfully");
         })
         .catch((err) => {
             toast.error(error);

@@ -15,9 +15,6 @@ const DashboardHero = () => {
     const {shop} = useSelector((state) => state.shop)
     const {orders} = useSelector((state) => state.order);
     const {products} = useSelector((state) => state.product);
-    console.log("orders", orders);
-    console.log("products", products);
-    console.log("shop", shop);
     const [deliveredOrder, setDeliveredOrder] = useState(null);
 
     useEffect(() => {
@@ -25,10 +22,9 @@ const DashboardHero = () => {
         dispatch(getAllProductsShop(shop._id))
 
         const orderData = orders && orders.filter((order) => order.status === "Delivered");
-        console.log("orderData", orderData);
         setDeliveredOrder(orderData)
 
-    },[dispatch,orders,shop._id]);
+    },[dispatch,orders,shop._id,products]);
 
     const totalEarningWithoutTax = deliveredOrder && deliveredOrder.reduce((acc, item) => acc + item.totalPrice, 0);
 
