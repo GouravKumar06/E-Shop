@@ -17,6 +17,8 @@ import { RxCross1 } from 'react-icons/rx';
 const Header = ({activeHeading}) => {
 
     const {shop} = useSelector((state) => state.shop);
+
+    
     const {wishlist} = useSelector((state) => state.wishlist);
     const {cart} = useSelector((state) => state.cart);
     const {allProducts} =useSelector((state) => state.product);

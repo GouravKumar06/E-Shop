@@ -9,6 +9,8 @@ import ShopPreviewPage from "../src/pages/Shop/ShopPreviewPage";
 import ShopAllOrdersPage from "../src/pages/Shop/ShopAllOrdersPage";
 import ShopOrderDetailsPage from "../src/pages/Shop/ShopOrderDetailsPage";
 import ShopSettingsPage from "../src/pages/Shop/ShopSettingsPage";
+import ShopWithdrawMoneyPage from "../src/pages/Shop/ShopWithdrawMoneyPage";
+import ShopInboxPage from "../src/pages/Shop/ShopInboxPage";
 export {
     ShopHomePage,
     ShopDashboardPage,
@@ -20,5 +22,7 @@ export {
     ShopPreviewPage,
     ShopAllOrdersPage,
     ShopOrderDetailsPage,
-    ShopSettingsPage
+    ShopSettingsPage,
+    ShopInboxPage,
+    ShopWithdrawMoneyPage
 }

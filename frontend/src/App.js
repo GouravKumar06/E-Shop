@@ -30,7 +30,9 @@ import {
   ShopPreviewPage,
   ShopAllOrdersPage,
   ShopOrderDetailsPage,
-  ShopSettingsPage
+  ShopSettingsPage,
+  ShopWithdrawMoneyPage,
+  ShopInboxPage
 } from './ShopRoutes.js';
 
 
@@ -182,6 +184,18 @@ function App() {
         <Route path='/dashboard-coupons' element={
           <SellerProtectedRoute >
             <ShopAllCouponsPage/>
+          </SellerProtectedRoute>
+        }/>
+
+        <Route path='/dashboard-messages' element={
+          <SellerProtectedRoute >
+            <ShopInboxPage/>
+          </SellerProtectedRoute>
+        }/>
+
+        <Route path='/dashboard-withdraw-money' element={
+          <SellerProtectedRoute >
+            <ShopWithdrawMoneyPage/>
           </SellerProtectedRoute>
         }/>
 

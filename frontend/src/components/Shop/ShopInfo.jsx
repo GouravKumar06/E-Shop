@@ -5,12 +5,19 @@ import styles from '../../styles/styles'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { getAllProductsShop } from '../../redux/actions/product'
 
 const ShopInfo = ({isOwner}) => {
     const [data,setData] = useState({});
+
+    const {products} = useSelector((state) => state.product);
+    const dispatch = useDispatch();
+
     const {id} = useParams();
 
     useEffect(() =>{
+        dispatch(getAllProductsShop(id));
+
         axios.get(`${server}/shop/get-shop-info/${id}`)
         .then((res) =>{
             setData(res.data.shop);
@@ -18,7 +25,7 @@ const ShopInfo = ({isOwner}) => {
         .catch((error) =>{
             console.log(error);
         })
-    },[]);
+    },[dispatch,id]);
 
     const navigate = useNavigate();
     
@@ -34,6 +41,13 @@ const ShopInfo = ({isOwner}) => {
             console.log(error.response.data.message);
         })
     }
+
+    const totalReviewsLength = products && products.reduce((acc, product) => acc + product.reviews.length, 0);
+
+    const totalRatings = products && products.reduce((acc, product) => acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),0);
+
+    const averageRating = totalRatings / totalReviewsLength || 0;
+
 
   return (
     <div>
@@ -68,14 +82,14 @@ const ShopInfo = ({isOwner}) => {
         <div className='p-3'>
             <h5 className='font-[600]'>Total Products</h5>
             <h4 className='text-[#000000a6]'>
-                10
+                {products?.length}
             </h4>
         </div>
 
         <div className='p-3'>
             <h5 className='font-[600]'>Shop Ratings</h5>
             <h4 className='text-[#000000a6]'>
-                4/5
+                {averageRating}/5
             </h4>
         </div>
 

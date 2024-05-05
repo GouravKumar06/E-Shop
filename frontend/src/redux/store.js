@@ -10,6 +10,8 @@ import { orderReducer } from './reducers/order';
 
 const Store = configureStore({
     reducer:{
+
+
         user : userReducer,
         shop:shopReducer,
         product : productReducer,

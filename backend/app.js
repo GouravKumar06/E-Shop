@@ -15,6 +15,8 @@ const EventRoutes = require('./routes/EventRoutes');
 const CouponRoutes = require('./routes/CouponRoutes');
 const payment = require('./controller/payment');
 const orderRoutes = require('./routes/orderRoutes');
+const ConversationRoutes = require('./routes/ConversationRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -34,6 +36,8 @@ app.use("/api/v2/event",EventRoutes);
 app.use("/api/v2/coupon",CouponRoutes);
 app.use("/api/v2/payment",payment);
 app.use("/api/v2/order",orderRoutes);
+app.use("/api/v2/conversation",ConversationRoutes);
+app.use("/api/v2/message",messageRoutes);
 
 
 
